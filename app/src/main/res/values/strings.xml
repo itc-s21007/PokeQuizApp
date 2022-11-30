@@ -1,0 +1,23 @@
+<resources>
+    <string name="app_name">PokeQuizApp</string>
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="generation_select">世代選択</string>
+    <string name="question">問題</string>
+    <string name="answer">結果発表</string>
+    <string name="poke_q">ポケモンクイズ</string>
+    <string name="start">スタート</string>
+    <string name="select">世代選択</string>
+    <string name="genarasion_1">１世代</string>
+    <string name="pokemon_id">ポケモンのID</string>
+    <string name="display">表示</string>
+    <string name="PokemonName">%1$s</string>
+    <string name="quizescreen">問題画面</string>
+    <string name="generasion2">２世代</string>
+    <string name="generasion3">３世代</string>
+    <string name="generasion4">４世代</string>
+    <string name="butonn">Button</string>
+    <string name="button">Button</string>
+    <string name="button2">Button</string>
+    <string name="todo">TODO</string>
+</resources>

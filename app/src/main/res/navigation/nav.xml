@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav"
+    app:startDestination="@id/startScreen">
+
+    <fragment
+        android:id="@+id/generationSelectction"
+        android:name="jp.ac.it_college.std.s21007.pokequizapp.GenerationSelection"
+        android:label="@string/generation_select"
+        tools:layout="@layout/fragment_generation_selectction">
+        <action
+            android:id="@+id/action_generationSelectction_to_quizscreen"
+            app:destination="@id/quizscreen" />
+    </fragment>
+    <fragment
+        android:id="@+id/answer"
+        android:name="jp.ac.it_college.std.s21007.pokequizapp.Answer"
+        android:label="@string/answer"
+        tools:layout="@layout/fragment_answer" />
+    <fragment
+        android:id="@+id/startScreen"
+        android:name="jp.ac.it_college.std.s21007.pokequizapp.StartScreen"
+        android:label="fragment_start_screen"
+        tools:layout="@layout/fragment_start_screen" >
+        <action
+            android:id="@+id/action_startScreen_to_generationSelectction"
+            app:destination="@id/generationSelectction" />
+    </fragment>
+    <fragment
+        android:id="@+id/quizscreen"
+        android:name="jp.ac.it_college.std.s21007.pokequizapp.quiz"
+        android:label="@string/quizescreen">
+        <action
+            android:id="@+id/action_quizscreen_to_answer"
+            app:destination="@id/answer" />
+    </fragment>
+</navigation>
