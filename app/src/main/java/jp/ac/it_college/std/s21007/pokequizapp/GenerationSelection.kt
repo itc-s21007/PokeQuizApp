@@ -18,10 +18,12 @@ class GenerationSelection : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentGenerationSelectctionBinding.inflate(inflater, container,false)
+        val element = pokemondexJson
 
         binding.generasion1.setOnClickListener {
+            val list = element.pokedex[0].entries.map { e -> e.pokemon_id }.toIntArray()
             Navigation.findNavController(it).navigate(
-                R.id.quizscreen
+                GenerationSelectionDirections.actionGenerationSelectctionToQuizscreen(list)
             )
         }
 

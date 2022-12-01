@@ -35,8 +35,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="88dp"
             android:layout_marginEnd="16dp"
-            android:text="@string/display"
-            android:textAllCaps="false"
+            android:contentDescription="@string/empty"
             app:layout_constraintEnd_toStartOf="@+id/guideline4"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/guideline3" />
@@ -48,7 +47,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="88dp"
             android:layout_marginEnd="16dp"
-            android:text="@string/butonn"
+            android:contentDescription="@string/empty2"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/guideline4"
             app:layout_constraintTop_toTopOf="@+id/guideline3"
@@ -68,7 +67,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="84dp"
             android:layout_marginEnd="16dp"
-            android:text="@string/button"
+            android:contentDescription="@string/empty3"
             app:layout_constraintEnd_toStartOf="@+id/guideline4"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/btDisplay" />
@@ -80,10 +79,21 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="84dp"
             android:layout_marginEnd="16dp"
-            android:text="@string/button2"
+            android:contentDescription="@string/empty4"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/guideline4"
             app:layout_constraintTop_toBottomOf="@+id/button3" />
+
+        <TextView
+            android:id="@+id/tvQCount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="1問目"
+            tools:textSize="20sp" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

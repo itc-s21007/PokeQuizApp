@@ -20,4 +20,9 @@
     <string name="button">Button</string>
     <string name="button2">Button</string>
     <string name="todo">TODO</string>
+    <string name="q_count">%d問目</string>
+    <string name="empty">%1$s</string>
+    <string name="empty2">%1$s</string>
+    <string name="empty3">%1$s</string>
+    <string name="empty4">%1$s</string>
 </resources>

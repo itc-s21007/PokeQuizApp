@@ -35,5 +35,15 @@
         <action
             android:id="@+id/action_quizscreen_to_answer"
             app:destination="@id/answer" />
+        <argument
+            android:name="pokemonid"
+            app:argType="integer[]" />
+        <argument
+            android:name="qCount"
+            app:argType="integer"
+            android:defaultValue="1" />
+        <action
+            android:id="@+id/action_quizscreen_self"
+            app:destination="@id/quizscreen" />
     </fragment>
 </navigation>

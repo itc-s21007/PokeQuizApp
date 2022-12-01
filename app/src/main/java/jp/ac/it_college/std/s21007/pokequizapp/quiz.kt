@@ -1,6 +1,6 @@
 package jp.ac.it_college.std.s21007.pokequizapp
 
-import android.content.Context
+
 import android.graphics.Color
 import android.graphics.PorterDuff
 import android.os.Bundle
@@ -8,10 +8,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.annotation.UiThread
 import androidx.annotation.WorkerThread
-import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.Navigation
+import androidx.navigation.fragment.navArgs
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import jp.ac.it_college.std.s21007.pokequizapp.Json.PokemonInfo
@@ -23,32 +25,64 @@ import kotlinx.coroutines.withContext
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import com.squareup.picasso.Picasso
-import kotlin.random.Random
 
-private const val BASE_URL = "https://pokeapi.co/api/v2/"
+
 
 class quiz : Fragment() {
     private var _binding: FragmentQuizBinding? = null
     private val binding get() = _binding!!
-
     private val moshi = Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
+    private val BASE_URL = "https://pokeapi.co/api/v2/"
+    val args:quizArgs by navArgs()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentQuizBinding.inflate(inflater, container, false)
-
-        val id = (1..150)
-
-        binding.btDisplay.setOnClickListener {
-            showPokemonInfo(id.random())
-        }
-
         binding.imgPokemon.setColorFilter(Color.BLACK, PorterDuff.Mode.SRC_IN)
-        showPokemonInfo(id.random())
+        val num = args.pokemonid.random()
+        showPokemonInfo(num)
+        val qCount = args.qCount
+        binding.tvQCount.text = getString(R.string.q_count, qCount)
+        val list = listOf(
+            binding.btDisplay,
+            binding.button2,
+            binding.button3,
+            binding.button4
+        ).shuffled()
 
+        list[0].text = pokemonJson.pokemon.filter { p -> p.id == num } [0].name
+        list[1].text = pokemonJson.pokemon.filter { p -> p.id != num }.random().name
+        list[2].text = pokemonJson.pokemon.filter { p -> p.id != num }.random().name
+        list[3].text = pokemonJson.pokemon.filter { p -> p.id != num }.random().name
 
+        class ClickListener(val right: Boolean) : View.OnClickListener{
+            override fun onClick(v: View) {
+                if(right) {
+                    Toast.makeText(context,"000000000", Toast.LENGTH_SHORT).show()
+                } else {
+                    Toast.makeText(context,"xxxxxxxxx", Toast.LENGTH_SHORT).show()
+                }
+                if (qCount < 10) {
+                    Navigation.findNavController(v).navigate(
+                        quizDirections.actionQuizscreenSelf(
+                            args.pokemonid
+                        ).apply {
+                            setQCount(qCount + 1)
+                        }
+                    )
+                }else{
+                    Navigation.findNavController(v).navigate(
+                        quizDirections.actionQuizscreenToAnswer()
+                    )
+                }
+            }
+        }
+        list[0].setOnClickListener(ClickListener(true))
+        list[1].setOnClickListener(ClickListener(false))
+        list[2].setOnClickListener(ClickListener(false))
+        list[3].setOnClickListener(ClickListener(false))
         return binding.root
     }
 
@@ -58,11 +92,6 @@ class quiz : Fragment() {
             val info = getPokemonInfo(id)
             val url = info.sprites.other.officialArtwork.frontDefault
             Picasso.get().load(url).into(binding.imgPokemon)
-//          binding.name.text = getString(R.string.PokemonName, info.name)
-            // ボタンにポケモンの名前表示
-            binding.btDisplay.text = getString(R.string.PokemonName, info.name)
-
-            //binding.type.text = getString(R.string.Type, info.type)
         }
     }
 
@@ -79,8 +108,8 @@ class quiz : Fragment() {
         }
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
+//    override fun onDestroyView() {
+//        super.onDestroyView()
+//        _binding = null
+//    }
 }
