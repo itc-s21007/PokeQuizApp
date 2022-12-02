@@ -18,7 +18,14 @@
         android:id="@+id/answer"
         android:name="jp.ac.it_college.std.s21007.pokequizapp.Answer"
         android:label="@string/answer"
-        tools:layout="@layout/fragment_answer" />
+        tools:layout="@layout/fragment_answer" >
+        <action
+            android:id="@+id/action_answer_to_generationSelectction"
+            app:destination="@id/generationSelectction" />
+        <argument
+            android:name="collecto"
+            app:argType="integer" />
+    </fragment>
     <fragment
         android:id="@+id/startScreen"
         android:name="jp.ac.it_college.std.s21007.pokequizapp.StartScreen"
@@ -45,5 +52,9 @@
         <action
             android:id="@+id/action_quizscreen_self"
             app:destination="@id/quizscreen" />
+        <argument
+            android:name="collecto"
+            app:argType="integer"
+            android:defaultValue="0" />
     </fragment>
 </navigation>

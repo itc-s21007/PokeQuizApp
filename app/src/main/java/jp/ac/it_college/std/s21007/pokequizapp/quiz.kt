@@ -1,6 +1,7 @@
 package jp.ac.it_college.std.s21007.pokequizapp
 
 
+import android.app.ProgressDialog.show
 import android.graphics.Color
 import android.graphics.PorterDuff
 import android.os.Bundle
@@ -35,6 +36,8 @@ class quiz : Fragment() {
     private val BASE_URL = "https://pokeapi.co/api/v2/"
     val args:quizArgs by navArgs()
 
+
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -44,6 +47,10 @@ class quiz : Fragment() {
         val num = args.pokemonid.random()
         showPokemonInfo(num)
         val qCount = args.qCount
+        var collecto = args.collecto
+
+
+
         binding.tvQCount.text = getString(R.string.q_count, qCount)
         val list = listOf(
             binding.btDisplay,
@@ -57,26 +64,33 @@ class quiz : Fragment() {
         list[2].text = pokemonJson.pokemon.filter { p -> p.id != num }.random().name
         list[3].text = pokemonJson.pokemon.filter { p -> p.id != num }.random().name
 
+        var clicked = false
+
+
         class ClickListener(val right: Boolean) : View.OnClickListener{
             override fun onClick(v: View) {
+                clicked = true
                 if(right) {
-                    Toast.makeText(context,"000000000", Toast.LENGTH_SHORT).show()
+                    collecto++
                 } else {
-                    Toast.makeText(context,"xxxxxxxxx", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context,"不正解", Toast.LENGTH_SHORT).show()
                 }
+
                 if (qCount < 10) {
                     Navigation.findNavController(v).navigate(
                         quizDirections.actionQuizscreenSelf(
                             args.pokemonid
                         ).apply {
                             setQCount(qCount + 1)
+                            setCollecto(collecto)
                         }
                     )
-                }else{
+                }else
                     Navigation.findNavController(v).navigate(
-                        quizDirections.actionQuizscreenToAnswer()
+                    quizDirections.actionQuizscreenToAnswer(
+                        args.collecto
                     )
-                }
+                )
             }
         }
         list[0].setOnClickListener(ClickListener(true))
@@ -84,6 +98,8 @@ class quiz : Fragment() {
         list[2].setOnClickListener(ClickListener(false))
         list[3].setOnClickListener(ClickListener(false))
         return binding.root
+
+        
     }
 
     @UiThread
@@ -107,6 +123,7 @@ class quiz : Fragment() {
             service.fetchPokemon(id).execute().body() ?: throw IllegalStateException("ポケモンが見つかりません")
         }
     }
+
 
 //    override fun onDestroyView() {
 //        super.onDestroyView()
